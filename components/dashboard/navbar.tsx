@@ -2,16 +2,18 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 
 const tabs = [
-  { label: "Dashboard", href: "/dashboard", active: true },
-  { label: "Movimientos", href: "/movimientos", active: false },
-  { label: "Recomendaciones", href: "/recomendaciones", active: false },
-  { label: "Credito", href: "/credito", active: false },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Movimientos", href: "/movimientos" },
+  { label: "Recomendaciones", href: "/recomendaciones" },
+  { label: "Credito", href: "/credito" },
 ]
 
 export function DashboardNavbar() {
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -60,41 +62,47 @@ export function DashboardNavbar() {
 
       {/* Tab navigation - desktop */}
       <nav className="hidden md:flex items-center gap-6 px-6 lg:px-8 border-b" style={{ borderColor: "#E0B45C33" }}>
-        {tabs.map((tab) => (
-          <Link
-            key={tab.label}
-            href={tab.href}
-            className="relative pb-3 text-sm font-medium transition-colors"
-            style={{ color: tab.active ? "#8B5A2B" : "#8B5A2B99" }}
-          >
-            {tab.label}
-            {tab.active && (
-              <span
-                className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                style={{ backgroundColor: "#8B5A2B" }}
-              />
-            )}
-          </Link>
-        ))}
+        {tabs.map((tab) => {
+          const isActive = pathname === tab.href
+          return (
+            <Link
+              key={tab.label}
+              href={tab.href}
+              className="relative pb-3 text-sm font-medium transition-colors"
+              style={{ color: isActive ? "#8B5A2B" : "#8B5A2B99" }}
+            >
+              {tab.label}
+              {isActive && (
+                <span
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                  style={{ backgroundColor: "#8B5A2B" }}
+                />
+              )}
+            </Link>
+          )
+        })}
       </nav>
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <nav className="md:hidden px-6 pb-4 flex flex-col gap-1 border-b" style={{ borderColor: "#E0B45C33" }}>
-          {tabs.map((tab) => (
-            <Link
-              key={tab.label}
-              href={tab.href}
-              className="text-left px-3 py-2 rounded-lg text-sm font-medium"
-              style={{
-                color: tab.active ? "#F3E9D7" : "#8B5A2B",
-                backgroundColor: tab.active ? "#8B5A2B" : "transparent",
-              }}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {tab.label}
-            </Link>
-          ))}
+          {tabs.map((tab) => {
+            const isActive = pathname === tab.href
+            return (
+              <Link
+                key={tab.label}
+                href={tab.href}
+                className="text-left px-3 py-2 rounded-lg text-sm font-medium"
+                style={{
+                  color: isActive ? "#F3E9D7" : "#8B5A2B",
+                  backgroundColor: isActive ? "#8B5A2B" : "transparent",
+                }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {tab.label}
+              </Link>
+            )
+          })}
           <div className="flex items-center gap-3 px-3 py-2 mt-2 border-t" style={{ borderColor: "#E0B45C33" }}>
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
