@@ -3,27 +3,54 @@
 import React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Eye, EyeOff, Lock, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+const VALID_EMAIL = "javierllorente@gmail.com"
+const VALID_PASSWORD = "LEOMESSIYANTO123456javier"
+
 export function LoginForm() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setError("")
     setIsLoading(true)
-    // Simulate login
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsLoading(false)
+
+    // Brief delay to simulate authentication
+    await new Promise((resolve) => setTimeout(resolve, 800))
+
+    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+      router.push("/dashboard")
+    } else {
+      setError("Invalid email or password. Please try again.")
+      setIsLoading(false)
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {error && (
+        <div
+          className="flex items-center gap-2 rounded-md px-4 py-3 text-sm font-medium"
+          style={{ backgroundColor: "rgba(220, 38, 38, 0.1)", color: "#DC2626" }}
+          role="alert"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          {error}
+        </div>
+      )}
+
       <div className="space-y-2">
         <Label htmlFor="email" className="text-sm font-medium text-foreground">
           Email Address
