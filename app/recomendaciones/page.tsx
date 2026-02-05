@@ -15,7 +15,10 @@ export default async function RecomendacionesPage() {
   const reminders = rows.map((row) => ({
     id: row.id as number,
     text: row.text as string,
-    date: row.date as string,
+    date: new Date(row.date as string).toLocaleDateString("es-AR", {
+      day: "numeric",
+      month: "long",
+    }),
     completed: row.completed as boolean,
   }))
 
