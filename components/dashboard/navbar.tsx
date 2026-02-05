@@ -5,10 +5,10 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
 const tabs = [
-  { label: "Dashboard", active: true },
-  { label: "Ventas", active: false },
-  { label: "Recomendaciones", active: false },
-  { label: "Credito", active: false },
+  { label: "Dashboard", href: "/dashboard", active: true },
+  { label: "Movimientos", href: "/movimientos", active: false },
+  { label: "Recomendaciones", href: "#", active: false },
+  { label: "Credito", href: "#", active: false },
 ]
 
 export function DashboardNavbar() {
@@ -61,9 +61,9 @@ export function DashboardNavbar() {
       {/* Tab navigation - desktop */}
       <nav className="hidden md:flex items-center gap-6 px-6 lg:px-8 border-b" style={{ borderColor: "#E0B45C33" }}>
         {tabs.map((tab) => (
-          <button
+          <Link
             key={tab.label}
-            type="button"
+            href={tab.href}
             className="relative pb-3 text-sm font-medium transition-colors"
             style={{ color: tab.active ? "#8B5A2B" : "#8B5A2B99" }}
           >
@@ -74,7 +74,7 @@ export function DashboardNavbar() {
                 style={{ backgroundColor: "#8B5A2B" }}
               />
             )}
-          </button>
+          </Link>
         ))}
       </nav>
 
@@ -82,17 +82,18 @@ export function DashboardNavbar() {
       {mobileMenuOpen && (
         <nav className="md:hidden px-6 pb-4 flex flex-col gap-1 border-b" style={{ borderColor: "#E0B45C33" }}>
           {tabs.map((tab) => (
-            <button
+            <Link
               key={tab.label}
-              type="button"
+              href={tab.href}
               className="text-left px-3 py-2 rounded-lg text-sm font-medium"
               style={{
                 color: tab.active ? "#F3E9D7" : "#8B5A2B",
                 backgroundColor: tab.active ? "#8B5A2B" : "transparent",
               }}
+              onClick={() => setMobileMenuOpen(false)}
             >
               {tab.label}
-            </button>
+            </Link>
           ))}
           <div className="flex items-center gap-3 px-3 py-2 mt-2 border-t" style={{ borderColor: "#E0B45C33" }}>
             <div
