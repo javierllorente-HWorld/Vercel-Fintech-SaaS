@@ -7,8 +7,8 @@ import { Menu, X } from "lucide-react"
 const tabs = [
   { label: "Dashboard", href: "/dashboard", active: true },
   { label: "Movimientos", href: "/movimientos", active: false },
-  { label: "Recomendaciones", href: "#", active: false },
-  { label: "Credito", href: "#", active: false },
+  { label: "Recomendaciones", href: "/recomendaciones", active: false },
+  { label: "Credito", href: "/credito", active: false },
 ]
 
 export function DashboardNavbar() {
