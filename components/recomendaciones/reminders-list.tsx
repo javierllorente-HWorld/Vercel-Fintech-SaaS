@@ -1,6 +1,7 @@
 "use client"
 
-import { Check, Plus } from "lucide-react"
+import { useTransition } from "react"
+import { Check, Plus, Loader2 } from "lucide-react"
 
 interface Reminder {
   id: number
@@ -9,7 +10,14 @@ interface Reminder {
   completed: boolean
 }
 
-export function RemindersList({ reminders }: { reminders: Reminder[] }) {
+export function RemindersList({
+  reminders,
+  markAsDone,
+}: {
+  reminders: Reminder[]
+  markAsDone: (id: number) => Promise<void>
+}) {
+  const [isPending, startTransition] = useTransition()
   return (
     <>
       {/* Header row */}
@@ -122,14 +130,22 @@ export function RemindersList({ reminders }: { reminders: Reminder[] }) {
               ) : (
                 <button
                   type="button"
-                  className="flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-opacity hover:opacity-80 md:text-sm"
+                  disabled={isPending}
+                  onClick={() =>
+                    startTransition(() => markAsDone(item.id))
+                  }
+                  className="flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-opacity hover:opacity-80 disabled:opacity-50 md:text-sm"
                   style={{
                     backgroundColor: "#F5EFE3",
                     color: "#8B5A2B",
                     border: "1px solid #D4C4A8",
                   }}
                 >
-                  <Check className="h-3.5 w-3.5" />
+                  {isPending ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <Check className="h-3.5 w-3.5" />
+                  )}
                   Marcar como hecho
                 </button>
               )}
