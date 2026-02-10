@@ -87,16 +87,14 @@ export function LoanSimulator() {
       </div>
 
       {/* CTA Button */}
-      <button
-        type="button"
-        disabled
-        className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold cursor-not-allowed opacity-100"
-        style={{ backgroundColor: "#8B5A2B", color: "#F3E9D7" }}
+      <div
+        aria-disabled="true"
+        className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold cursor-not-allowed select-none pointer-events-none"
+        style={{ backgroundColor: "#C4A882", color: "#F3E9D7AA" }}
       >
-        <Lock className="w-4 h-4" />
-        Simular credito
-        <ArrowRight className="w-4 h-4" />
-      </button>
+        <Lock className="w-4 h-4" style={{ color: "#F3E9D7AA" }} />
+        <span>Simular credito</span>
+      </div>
     </div>
   )
 }
