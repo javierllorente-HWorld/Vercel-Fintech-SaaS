@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Lock } from "lucide-react"
 
 const MIN_AMOUNT = 50000
 const MAX_AMOUNT = 500000
@@ -89,9 +89,11 @@ export function LoanSimulator() {
       {/* CTA Button */}
       <button
         type="button"
-        className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold transition-colors"
+        disabled
+        className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full text-sm font-semibold cursor-not-allowed opacity-100"
         style={{ backgroundColor: "#8B5A2B", color: "#F3E9D7" }}
       >
+        <Lock className="w-4 h-4" />
         Simular credito
         <ArrowRight className="w-4 h-4" />
       </button>
