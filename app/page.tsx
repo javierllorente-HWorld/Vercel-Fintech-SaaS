@@ -16,16 +16,12 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex flex-col items-center gap-8 px-12 text-center">
           {/* Logo Mark */}
-          <div
-            className="flex items-center justify-center w-20 h-20 rounded-2xl shadow-lg"
-            style={{ backgroundColor: "#E0B45C" }}
-          >
-            <span
-              className="text-3xl font-black tracking-tight"
-              style={{ color: "#5A3A1A" }}
-            >
-              M
-            </span>
+          <div className="w-20 h-20 rounded-2xl shadow-lg overflow-hidden">
+            <img
+              src="/mateo-logo.png"
+              alt="MATEO logo"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           <div className="space-y-4">
@@ -77,16 +73,12 @@ export default function LoginPage() {
         <div className="w-full max-w-md space-y-8">
           {/* Mobile Logo */}
           <div className="flex flex-col items-center gap-3 lg:hidden">
-            <div
-              className="flex items-center justify-center w-14 h-14 rounded-xl shadow-md"
-              style={{ backgroundColor: "#E0B45C" }}
-            >
-              <span
-                className="text-2xl font-black tracking-tight"
-                style={{ color: "#5A3A1A" }}
-              >
-                M
-              </span>
+            <div className="w-14 h-14 rounded-xl shadow-md overflow-hidden">
+              <img
+                src="/mateo-logo.png"
+                alt="MATEO logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <h1
               className="text-2xl font-black tracking-widest"

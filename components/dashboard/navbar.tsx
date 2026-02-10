@@ -22,13 +22,12 @@ export function DashboardNavbar() {
       <div className="flex items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
         <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div
-            className="flex items-center justify-center w-8 h-8 rounded-lg"
-            style={{ backgroundColor: "#8B5A2B" }}
-          >
-            <span className="text-sm font-black" style={{ color: "#F3E9D7" }}>
-              M
-            </span>
+          <div className="w-8 h-8 rounded-lg overflow-hidden">
+            <img
+              src="/mateo-logo.png"
+              alt="MATEO logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <span className="text-lg font-bold tracking-wide" style={{ color: "#1F1F1F" }}>
             Mateo
