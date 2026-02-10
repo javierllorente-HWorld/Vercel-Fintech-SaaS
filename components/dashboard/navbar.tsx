@@ -3,13 +3,13 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Lock } from "lucide-react"
 
 const tabs = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Movimientos", href: "/movimientos" },
-  { label: "Recomendaciones", href: "/recomendaciones" },
-  { label: "Credito", href: "/credito" },
+  { label: "Dashboard", href: "/dashboard", locked: false },
+  { label: "Movimientos", href: "/movimientos", locked: false },
+  { label: "Recomendaciones", href: "/recomendaciones", locked: false },
+  { label: "Credito", href: "/credito", locked: true },
 ]
 
 export function DashboardNavbar() {
@@ -68,10 +68,11 @@ export function DashboardNavbar() {
             <Link
               key={tab.label}
               href={tab.href}
-              className="relative pb-3 text-sm font-medium transition-colors"
+              className="relative pb-3 text-sm font-medium transition-colors flex items-center gap-1.5"
               style={{ color: isActive ? "#8B5A2B" : "#8B5A2B99" }}
             >
               {tab.label}
+              {tab.locked && <Lock className="w-3 h-3" style={{ color: "#8B5A2B77" }} />}
               {isActive && (
                 <span
                   className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
@@ -92,7 +93,7 @@ export function DashboardNavbar() {
               <Link
                 key={tab.label}
                 href={tab.href}
-                className="text-left px-3 py-2 rounded-lg text-sm font-medium"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium"
                 style={{
                   color: isActive ? "#F3E9D7" : "#8B5A2B",
                   backgroundColor: isActive ? "#8B5A2B" : "transparent",
@@ -100,6 +101,7 @@ export function DashboardNavbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {tab.label}
+                {tab.locked && <Lock className="w-3 h-3" style={{ color: isActive ? "#F3E9D7AA" : "#8B5A2B77" }} />}
               </Link>
             )
           })}

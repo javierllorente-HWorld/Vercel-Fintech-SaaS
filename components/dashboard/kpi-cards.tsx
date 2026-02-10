@@ -1,4 +1,4 @@
-import { ClipboardList, TrendingUp, AlertCircle, Wallet } from "lucide-react"
+import { ClipboardList, TrendingUp, AlertCircle, Wallet, Lock } from "lucide-react"
 import type { ReactNode } from "react"
 
 interface KpiCard {
@@ -43,7 +43,7 @@ export function KpiCards() {
       {kpiData.map((card) => (
         <div
           key={card.label}
-          className="rounded-xl p-5 border flex flex-col gap-3"
+          className="relative rounded-xl p-5 border flex flex-col gap-3 overflow-hidden"
           style={
             card.highlight
               ? { backgroundColor: "#8B5A2B", borderColor: "#8B5A2B" }
@@ -85,6 +85,21 @@ export function KpiCards() {
           >
             {card.subtitle}
           </p>
+
+          {/* Locked overlay for highlighted card */}
+          {card.highlight && (
+            <div
+              className="absolute inset-0 flex items-center justify-center rounded-xl"
+              style={{ backgroundColor: "rgba(90, 58, 26, 0.55)", backdropFilter: "blur(3px)" }}
+            >
+              <div className="flex items-center gap-2">
+                <Lock className="w-5 h-5" style={{ color: "#F3E9D7" }} />
+                <span className="text-sm font-semibold" style={{ color: "#F3E9D7" }}>
+                  Disponible proximamente
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       ))}
     </div>
