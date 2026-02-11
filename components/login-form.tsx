@@ -31,7 +31,7 @@ export function LoginForm() {
     if (email === VALID_EMAIL && password === VALID_PASSWORD) {
       router.push("/dashboard")
     } else {
-      setError("Invalid email or password. Please try again.")
+      setError("Correo o contrasena incorrectos. Intenta de nuevo.")
       setIsLoading(false)
     }
   }
@@ -53,14 +53,14 @@ export function LoginForm() {
 
       <div className="space-y-2">
         <Label htmlFor="email" className="text-sm font-medium text-foreground">
-          Email Address
+          Correo electronico
         </Label>
         <div className="relative">
           <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             id="email"
             type="email"
-            placeholder="you@example.com"
+            placeholder="tu@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -72,14 +72,14 @@ export function LoginForm() {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="password" className="text-sm font-medium text-foreground">
-            Password
+            Contrasena
           </Label>
           <button
             type="button"
             className="text-xs font-medium hover:underline"
             style={{ color: "#8B5A2B" }}
           >
-            Forgot password?
+            {"Olvidaste tu contrasena?"}
           </button>
         </div>
         <div className="relative">
@@ -87,7 +87,7 @@ export function LoginForm() {
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
+            placeholder="Ingresa tu contrasena"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -111,7 +111,7 @@ export function LoginForm() {
           className="h-4 w-4 rounded border-border accent-primary"
         />
         <Label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer">
-          Remember me
+          Recordarme
         </Label>
       </div>
 
@@ -136,10 +136,10 @@ export function LoginForm() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            Signing in...
+            Ingresando...
           </span>
         ) : (
-          "Sign In"
+          "Ingresar"
         )}
       </Button>
 
@@ -148,7 +148,7 @@ export function LoginForm() {
           <div className="w-full border-t border-border" />
         </div>
         <span className="relative bg-card px-4 text-xs text-muted-foreground uppercase tracking-wider">
-          or
+          o
         </span>
       </div>
 
@@ -175,17 +175,17 @@ export function LoginForm() {
             fill="#EA4335"
           />
         </svg>
-        Continue with Google
+        Continuar con Google
       </Button>
 
       <p className="text-center text-sm text-muted-foreground pt-2">
-        {"Don't have an account? "}
+        {"No tenes cuenta? "}
         <button
           type="button"
           className="font-semibold hover:underline"
           style={{ color: "#7FA44A" }}
         >
-          Sign up
+          Crear cuenta
         </button>
       </p>
     </form>

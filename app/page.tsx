@@ -39,8 +39,8 @@ export default function LoginPage() {
               className="text-lg font-light tracking-wide leading-relaxed max-w-sm"
               style={{ color: "#E0B45C" }}
             >
-              Streamline your workflow. <br />
-              Elevate your results.
+              Simplifica tu trabajo. <br />
+              Eleva tus resultados.
             </p>
           </div>
 
@@ -94,13 +94,13 @@ export default function LoginPage() {
               className="text-2xl font-bold tracking-tight"
               style={{ color: "#1F1F1F" }}
             >
-              Welcome back
+              Ingresa a tu cuenta
             </h2>
             <p
               className="text-sm"
               style={{ color: "#8B5A2B" }}
             >
-              Enter your credentials to access your account
+              Ingresa tus datos para acceder a tu cuenta
             </p>
           </div>
 
@@ -120,7 +120,7 @@ export default function LoginPage() {
             className="text-center text-xs"
             style={{ color: "#8B5A2B99" }}
           >
-            &copy; 2026 MATEO. All rights reserved.
+            &copy; 2026 MATEO. Todos los derechos reservados.
           </p>
         </div>
       </div>
