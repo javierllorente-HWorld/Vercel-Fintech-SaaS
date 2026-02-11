@@ -6,8 +6,33 @@ export default function LoginPage() {
       {/* Left Panel - Branding */}
       <div
         className="hidden lg:flex lg:w-1/2 flex-col items-center justify-center relative overflow-hidden"
-        style={{ backgroundColor: "#5A3A1A" }}
+        style={{
+          background: "linear-gradient(160deg, #6B4420 0%, #5A3A1A 40%, #4A2E14 100%)",
+        }}
       >
+        {/* Subtle grid texture overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(224,180,92,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(224,180,92,0.04) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+
+        {/* Soft radial glow behind logo */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: "400px",
+            height: "400px",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "radial-gradient(circle, rgba(224,180,92,0.06) 0%, transparent 70%)",
+          }}
+        />
+
         {/* Decorative accent bar */}
         <div
           className="absolute top-0 left-0 w-full h-1"
@@ -15,8 +40,8 @@ export default function LoginPage() {
         />
 
         <div className="relative z-10 flex flex-col items-center gap-8 px-12 text-center">
-          {/* Logo Mark */}
-          <div className="w-20 h-20 rounded-2xl shadow-lg overflow-hidden">
+          {/* Logo Mark - enlarged for visual focal point */}
+          <div className="w-28 h-28 rounded-2xl shadow-lg overflow-hidden">
             <img
               src="/mateo-logo.png"
               alt="MATEO logo"
@@ -42,19 +67,6 @@ export default function LoginPage() {
               Simplifica tu trabajo. <br />
               Eleva tus resultados.
             </p>
-          </div>
-
-          {/* Decorative dots */}
-          <div className="flex gap-2 mt-6">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{
-                  backgroundColor: i === 1 ? "#E0B45C" : "#8B5A2B",
-                }}
-              />
-            ))}
           </div>
         </div>
 
