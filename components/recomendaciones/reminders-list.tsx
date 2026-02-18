@@ -27,7 +27,7 @@ export function RemindersList({
             className="text-2xl font-bold md:text-3xl"
             style={{ color: "#1F1F1F" }}
           >
-            Recomendaciones
+            Tareas
           </h1>
           <p className="mt-1 text-sm" style={{ color: "#8B5A2B99" }}>
             Recordatorios y pendientes de tu negocio
