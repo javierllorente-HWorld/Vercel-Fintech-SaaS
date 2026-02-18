@@ -20,7 +20,8 @@ export async function login(email: string, password: string) {
     return { error: "Contraseña incorrecta" }
   }
 
-  cookies().set("user_id", String(user.id))
+  const cookieStore = await cookies()
+  cookieStore.set("user_id", String(user.id))
 
   return { success: true }
 }
