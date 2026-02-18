@@ -8,7 +8,7 @@ import { Menu, X, Lock } from "lucide-react"
 const tabs = [
   { label: "Dashboard", href: "/dashboard", locked: false },
   { label: "Movimientos", href: "/movimientos", locked: false },
-  { label: "Recomendaciones", href: "/recomendaciones", locked: false },
+  { label: "Tareas", href: "/Tareas", locked: false },
   { label: "Credito", href: "/credito", locked: true },
 ]
 
