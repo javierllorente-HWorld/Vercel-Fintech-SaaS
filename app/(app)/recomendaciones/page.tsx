@@ -25,7 +25,6 @@ export default async function RecomendacionesPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#F3E9D7" }}>
-      <DashboardNavbar />
 
       <main className="mx-auto max-w-5xl px-6 py-10 lg:px-8">
         <RemindersList reminders={reminders} markAsDone={markAsDone} />
