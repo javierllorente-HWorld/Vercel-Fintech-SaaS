@@ -10,7 +10,7 @@ export default function CreditoPage() {
   const [showMessage, setShowMessage] = useState(false)
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F3E9D7" }}>
+    <div>
       <DashboardNavbar />
 
       <main className="px-4 py-8 lg:px-8 max-w-[1360px] mx-auto flex flex-col gap-6">

@@ -71,7 +71,7 @@ function formatAmount(amount: number) {
 
 export default function MovimientosPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F3E9D7" }}>
+    <div>
 
       <main className="px-6 py-10 lg:px-8 max-w-7xl mx-auto">
         {/* KPI Cards */}
