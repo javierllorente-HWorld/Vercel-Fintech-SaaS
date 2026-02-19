@@ -12,7 +12,14 @@ const tabs = [
   { label: "Credito", href: "/credito", locked: true },
 ]
 
-export function DashboardNavbar() {
+export function DashboardNavbar({
+  businessName,
+  userName,
+}: {
+  businessName: string
+  userName: string
+}) {
+
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
