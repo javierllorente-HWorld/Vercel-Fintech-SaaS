@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { DashboardNavbar } from "@/components/dashboard/navbar"
 import { Lock, TrendingUp, CheckCircle2, Clock, Info } from "lucide-react"
 
 export default function CreditoPage() {
@@ -11,7 +10,6 @@ export default function CreditoPage() {
 
   return (
     <div>
-      <DashboardNavbar />
 
       <main className="px-4 py-8 lg:px-8 max-w-[1360px] mx-auto flex flex-col gap-6">
         {/* Credit Available Hero Banner */}
