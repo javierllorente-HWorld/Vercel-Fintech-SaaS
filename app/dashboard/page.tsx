@@ -30,7 +30,8 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F3E9D7" }}>
-      <DashboardNavbar />
+      <DashboardNavbar businessName={user.business_name} userName={user.name} />
+
 
       <main className="flex-1 px-6 lg:px-8 py-6">
         <div className="mb-6">
