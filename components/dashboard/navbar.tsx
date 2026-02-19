@@ -44,13 +44,13 @@ export function DashboardNavbar({
         {/* User info - desktop */}
         <div className="hidden md:flex items-center gap-3">
           <span className="text-sm font-medium" style={{ color: "#5A3A1A" }}>
-            Supermercado Don Javier
+            {businessName}
           </span>
           <div
             className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold"
             style={{ backgroundColor: "#8B5A2B", color: "#F3E9D7" }}
           >
-            JLL
+            {userName?.slice(0, 2).toUpperCase()}
           </div>
         </div>
 
