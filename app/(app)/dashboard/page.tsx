@@ -17,7 +17,7 @@ export default async function DashboardPage() {
       <main className="flex-1 px-6 lg:px-8 py-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#1F1F1F" }}>
-            Hola, {users.name}
+            Hola, {user.name}
           </h1>
           <p className="text-sm mt-1" style={{ color: "#8B5A2B99" }}>
             Aqui tienes una vista rapida de la caja de tu negocio
