@@ -27,7 +27,7 @@ export default async function AppLayout({
   const user = users[0]
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F3E9D7" }}>
+    <div>
       <DashboardNavbar
         businessName={user.business_name}
         userName={user.name}
