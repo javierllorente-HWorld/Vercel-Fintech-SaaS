@@ -1,42 +1,23 @@
-import { cookies } from "next/headers"
-import { neon } from "@neondatabase/serverless"
 
-import { DashboardNavbar } from "@/components/dashboard/navbar"
 import { KpiCards } from "@/components/dashboard/kpi-cards"
 import { RevenueChart } from "@/components/dashboard/revenue-chart"
 import { LoanSimulator } from "@/components/dashboard/loan-simulator"
 import Link from "next/link"
 import { LogOut } from "lucide-react"
 
-const sql = neon(process.env.DATABASE_URL!)
 
 export default async function DashboardPage() {
-  const cookieStore = await cookies()
-  const userId = cookieStore.get("user_id")?.value
 
-  if (!userId) {
-    return <div>No autorizado</div>
-  }
-
-  const users = await sql`
-    SELECT name, business_name FROM users WHERE id = ${userId}
-  `
-
-  if (users.length === 0) {
-    return <div>Usuario no encontrado</div>
-  }
-
-  const user = users[0]
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F3E9D7" }}>
-      <DashboardNavbar businessName={user.business_name} userName={user.name} />
+
 
 
       <main className="flex-1 px-6 lg:px-8 py-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#1F1F1F" }}>
-            Hola, {user.name}
+            Hola
           </h1>
           <p className="text-sm mt-1" style={{ color: "#8B5A2B99" }}>
             Aqui tienes una vista rapida de la caja de tu negocio
