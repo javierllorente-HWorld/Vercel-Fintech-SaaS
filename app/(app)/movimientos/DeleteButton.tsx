@@ -3,7 +3,11 @@
 import { useState } from "react"
 import { Trash2 } from "lucide-react"
 
-export function DeleteButton() {
+type Props = {
+  movementId: number
+}
+
+export function DeleteButton({ movementId }: Props) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -22,6 +26,7 @@ export function DeleteButton() {
             <h3 className="text-lg font-bold mb-3">
               Confirmar eliminación
             </h3>
+
             <p className="text-sm text-gray-600 mb-6">
               ¿Seguro que querés eliminar este movimiento?
             </p>
@@ -35,7 +40,10 @@ export function DeleteButton() {
               </button>
 
               <button
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  console.log("Eliminar movimiento:", movementId)
+                  setOpen(false)
+                }}
                 className="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700"
               >
                 Eliminar
