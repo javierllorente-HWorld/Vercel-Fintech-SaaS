@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { Trash2 } from "lucide-react"
+import { deleteMovement } from "./actions"
 
 type Props = {
   movementId: number
@@ -9,6 +10,14 @@ type Props = {
 
 export function DeleteButton({ movementId }: Props) {
   const [open, setOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
+  const handleDelete = () => {
+    startTransition(async () => {
+      await deleteMovement(movementId)
+      setOpen(false)
+    })
+  }
 
   return (
     <>
@@ -35,18 +44,17 @@ export function DeleteButton({ movementId }: Props) {
               <button
                 onClick={() => setOpen(false)}
                 className="px-4 py-2 text-sm rounded-lg border"
+                disabled={isPending}
               >
                 Cancelar
               </button>
 
               <button
-                onClick={() => {
-                  console.log("Eliminar movimiento:", movementId)
-                  setOpen(false)
-                }}
+                onClick={handleDelete}
                 className="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700"
+                disabled={isPending}
               >
-                Eliminar
+                {isPending ? "Eliminando..." : "Eliminar"}
               </button>
             </div>
           </div>
