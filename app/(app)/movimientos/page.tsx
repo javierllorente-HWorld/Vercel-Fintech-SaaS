@@ -1,4 +1,4 @@
-import { DollarSign, TrendingUp, Calendar } from "lucide-react"
+import { DollarSign, TrendingUp, Calendar, Trash2 } from "lucide-react"
 import { cookies } from "next/headers"
 import { neon } from "@neondatabase/serverless"
 
@@ -17,7 +17,6 @@ export default async function MovimientosPage() {
     return <div>No autorizado</div>
   }
 
-  // Movimientos del usuario
   const operations = await sql`
     SELECT id, identificador, detalle, monto, fecha
     FROM movimientos
@@ -25,7 +24,6 @@ export default async function MovimientosPage() {
     ORDER BY fecha DESC
   `
 
-  // Zona horaria Argentina
   const now = new Date(
     new Date().toLocaleString("en-US", {
       timeZone: "America/Argentina/Buenos_Aires",
@@ -36,7 +34,6 @@ export default async function MovimientosPage() {
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1
 
-  // ✅ TOTAL DEL MES
   const totalMesResult = await sql`
     SELECT COALESCE(SUM(monto), 0) as total
     FROM movimientos
@@ -46,7 +43,6 @@ export default async function MovimientosPage() {
   `
   const totalMes = Number(totalMesResult[0].total)
 
-  // ✅ TOTAL HISTÓRICO
   const totalHistoricoResult = await sql`
     SELECT COALESCE(SUM(monto), 0) as total
     FROM movimientos
@@ -54,7 +50,6 @@ export default async function MovimientosPage() {
   `
   const totalHistorico = Number(totalHistoricoResult[0].total)
 
-  // ✅ PRIMER MOVIMIENTO
   const firstMovementResult = await sql`
     SELECT MIN(fecha) as primera_fecha
     FROM movimientos
@@ -95,6 +90,7 @@ export default async function MovimientosPage() {
   return (
     <div>
       <main className="px-6 py-10 lg:px-8 max-w-7xl mx-auto">
+
         {/* KPI Cards */}
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-0 rounded-2xl overflow-hidden border"
@@ -157,8 +153,12 @@ export default async function MovimientosPage() {
                     <th className="px-6 py-4 text-right text-sm font-medium">
                       Fecha
                     </th>
+                    <th className="px-6 py-4 text-right text-sm font-medium">
+                      Acciones
+                    </th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {operations.map((op: any, i: number) => (
                     <tr
@@ -187,6 +187,17 @@ export default async function MovimientosPage() {
                       <td className="px-6 py-5 text-sm text-right">
                         {new Date(op.fecha).toLocaleDateString("es-AR")}
                       </td>
+
+                      {/* NUEVA COLUMNA UI */}
+                      <td className="px-6 py-5 text-right">
+                        <button
+                          type="button"
+                          className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4 text-red-600" />
+                        </button>
+                      </td>
+
                     </tr>
                   ))}
                 </tbody>
@@ -194,6 +205,7 @@ export default async function MovimientosPage() {
             </div>
           </div>
         </div>
+
       </main>
     </div>
   )
