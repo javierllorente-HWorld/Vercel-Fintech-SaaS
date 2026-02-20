@@ -24,7 +24,11 @@ export default async function MovimientosPage() {
     ORDER BY fecha DESC
   `
 
-  const today = new Date().getDate()
+  const today = new Date().toLocaleString("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires"
+  })
+
+  const dayNumber = new Date(today).getDate()
 
   const kpis = [
     {
@@ -39,7 +43,7 @@ export default async function MovimientosPage() {
     },
     {
       label: "Días transcurridos del mes",
-      value: `${today} días`,
+      value: `${dayNumber} días`
       icon: Calendar,
     },
   ]
