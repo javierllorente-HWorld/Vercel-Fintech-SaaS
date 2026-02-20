@@ -1,6 +1,7 @@
-import { DollarSign, TrendingUp, Calendar, Trash2 } from "lucide-react"
+import { DollarSign, TrendingUp, Calendar } from "lucide-react"
 import { cookies } from "next/headers"
 import { neon } from "@neondatabase/serverless"
+import { DeleteButton } from "./DeleteButton"
 
 const sql = neon(process.env.DATABASE_URL!)
 
@@ -188,14 +189,8 @@ export default async function MovimientosPage() {
                         {new Date(op.fecha).toLocaleDateString("es-AR")}
                       </td>
 
-                      {/* NUEVA COLUMNA UI */}
                       <td className="px-6 py-5 text-right">
-                        <button
-                          type="button"
-                          className="p-2 rounded-lg hover:bg-red-50 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4 text-red-600" />
-                        </button>
+                        <DeleteButton />
                       </td>
 
                     </tr>
