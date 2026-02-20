@@ -24,6 +24,8 @@ export default async function MovimientosPage() {
     ORDER BY fecha DESC
   `
 
+  const today = new Date().getDate()
+
   const kpis = [
     {
       label: "Total del mes",
@@ -31,13 +33,13 @@ export default async function MovimientosPage() {
       icon: DollarSign,
     },
     {
-      label: "Promedio diario",
+      label: "Promedio mensual",
       value: "$62,375",
       icon: TrendingUp,
     },
     {
-      label: "Dias operativos",
-      value: "20 dias",
+      label: "Días transcurridos del mes",
+      value: `${today} días`,
       icon: Calendar,
     },
   ]
