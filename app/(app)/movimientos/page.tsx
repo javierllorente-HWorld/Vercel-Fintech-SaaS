@@ -190,7 +190,7 @@ export default async function MovimientosPage() {
                       </td>
 
                       <td className="px-6 py-5 text-right">
-                        <DeleteButton />
+                        <DeleteButton movementId={op.id} />
                       </td>
 
                     </tr>
