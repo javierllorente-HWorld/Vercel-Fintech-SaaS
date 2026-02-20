@@ -1,78 +1,49 @@
-
 import { DollarSign, TrendingUp, Calendar } from "lucide-react"
+import { cookies } from "next/headers"
+import { neon } from "@neondatabase/serverless"
 
-const kpis = [
-  {
-    label: "Total del mes",
-    value: "$1,247,500",
-    icon: DollarSign,
-  },
-  {
-    label: "Promedio diario",
-    value: "$62,375",
-    icon: TrendingUp,
-  },
-  {
-    label: "Dias operativos",
-    value: "20 dias",
-    icon: Calendar,
-  },
-]
-
-const operations = [
-  {
-    id: "OP-027",
-    detail: "Renovacion de stock de servilletas (compra x 50 mil unid.)",
-    amount: 50000,
-    date: "20/04",
-  },
-  {
-    id: "OP-026",
-    detail: "Pago del alquiler del negocio",
-    amount: -30000,
-    date: "15/04",
-  },
-  {
-    id: "OP-025",
-    detail: "Compra materias primas \u2013 Carnes Hermanos",
-    amount: 65000,
-    date: "10/04",
-  },
-  {
-    id: "OP-024",
-    detail: "Venta quincena 1",
-    amount: 131000,
-    date: "10/04",
-  },
-  {
-    id: "OP-023",
-    detail: "Compra mercaderia de limpieza - Productos SaniPro",
-    amount: 42000,
-    date: "05/04",
-  },
-  {
-    id: "OP-022",
-    detail: "Pago servicio de internet",
-    amount: -8500,
-    date: "03/04",
-  },
-  {
-    id: "OP-021",
-    detail: "Venta mostrador semanal",
-    amount: 97000,
-    date: "01/04",
-  },
-]
+const sql = neon(process.env.DATABASE_URL!)
 
 function formatAmount(amount: number) {
   const formatted = `$${Math.abs(amount).toLocaleString("es-AR")}`
   return amount < 0 ? `-${formatted}` : formatted
 }
 
-export default function MovimientosPage() {
+export default async function MovimientosPage() {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get("user_id")?.value
+
+  if (!userId) {
+    return <div>No autorizado</div>
+  }
+
+  const operations = await sql`
+    SELECT id, identificador, detalle, monto, fecha
+    FROM movimientos
+    WHERE user_id = ${userId}
+    ORDER BY fecha DESC
+  `
+
+  const kpis = [
+    {
+      label: "Total del mes",
+      value: "$1,247,500",
+      icon: DollarSign,
+    },
+    {
+      label: "Promedio diario",
+      value: "$62,375",
+      icon: TrendingUp,
+    },
+    {
+      label: "Dias operativos",
+      value: "20 dias",
+      icon: Calendar,
+    },
+  ]
+
   return (
     <div>
-
       <main className="px-6 py-10 lg:px-8 max-w-7xl mx-auto">
         {/* KPI Cards */}
         <div
@@ -124,40 +95,31 @@ export default function MovimientosPage() {
 
           <div
             className="rounded-2xl border overflow-hidden"
-            style={{ borderColor: "#E0C9A6", backgroundColor: "rgba(255,255,255,0.6)" }}
+            style={{
+              borderColor: "#E0C9A6",
+              backgroundColor: "rgba(255,255,255,0.6)",
+            }}
           >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr style={{ borderBottom: "1px solid #E0C9A6" }}>
-                    <th
-                      className="px-6 py-4 text-left text-sm font-medium"
-                      style={{ color: "#8B5A2B99" }}
-                    >
+                    <th className="px-6 py-4 text-left text-sm font-medium">
                       Identificador del movimiento
                     </th>
-                    <th
-                      className="px-6 py-4 text-left text-sm font-medium"
-                      style={{ color: "#8B5A2B99" }}
-                    >
+                    <th className="px-6 py-4 text-left text-sm font-medium">
                       Detalle
                     </th>
-                    <th
-                      className="px-6 py-4 text-left text-sm font-medium"
-                      style={{ color: "#8B5A2B99" }}
-                    >
+                    <th className="px-6 py-4 text-left text-sm font-medium">
                       Monto
                     </th>
-                    <th
-                      className="px-6 py-4 text-right text-sm font-medium"
-                      style={{ color: "#8B5A2B99" }}
-                    >
+                    <th className="px-6 py-4 text-right text-sm font-medium">
                       Fecha
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {operations.map((op, i) => (
+                  {operations.map((op: any, i: number) => (
                     <tr
                       key={op.id}
                       style={{
@@ -167,31 +129,22 @@ export default function MovimientosPage() {
                             : "none",
                       }}
                     >
-                      <td
-                        className="px-6 py-5 text-sm font-semibold"
-                        style={{ color: "#1F1F1F" }}
-                      >
-                        {op.id}
+                      <td className="px-6 py-5 text-sm font-semibold">
+                        {op.identificador}
                       </td>
-                      <td
-                        className="px-6 py-5 text-sm"
-                        style={{ color: "#1F1F1F" }}
-                      >
-                        {op.detail}
+                      <td className="px-6 py-5 text-sm">
+                        {op.detalle}
                       </td>
                       <td
                         className="px-6 py-5 text-sm font-bold"
                         style={{
-                          color: op.amount < 0 ? "#C0392B" : "#1F1F1F",
+                          color: op.monto < 0 ? "#C0392B" : "#1F1F1F",
                         }}
                       >
-                        {formatAmount(op.amount)}
+                        {formatAmount(op.monto)}
                       </td>
-                      <td
-                        className="px-6 py-5 text-sm text-right"
-                        style={{ color: "#1F1F1F" }}
-                      >
-                        {op.date}
+                      <td className="px-6 py-5 text-sm text-right">
+                        {new Date(op.fecha).toLocaleDateString("es-AR")}
                       </td>
                     </tr>
                   ))}
