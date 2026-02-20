@@ -17,6 +17,7 @@ export default async function MovimientosPage() {
     return <div>No autorizado</div>
   }
 
+  // Movimientos del usuario
   const operations = await sql`
     SELECT id, identificador, detalle, monto, fecha
     FROM movimientos
@@ -24,7 +25,7 @@ export default async function MovimientosPage() {
     ORDER BY fecha DESC
   `
 
-  // ✅ Zona horaria Argentina correctamente aplicada
+  // Zona horaria Argentina
   const now = new Date(
     new Date().toLocaleString("en-US", {
       timeZone: "America/Argentina/Buenos_Aires",
@@ -32,16 +33,29 @@ export default async function MovimientosPage() {
   )
 
   const today = now.getDate()
+  const currentYear = now.getFullYear()
+  const currentMonth = now.getMonth() + 1
+
+  // ✅ TOTAL DEL MES (consulta real)
+  const totalMesResult = await sql`
+    SELECT COALESCE(SUM(monto), 0) as total
+    FROM movimientos
+    WHERE user_id = ${userId}
+    AND EXTRACT(YEAR FROM fecha) = ${currentYear}
+    AND EXTRACT(MONTH FROM fecha) = ${currentMonth}
+  `
+
+  const totalMes = Number(totalMesResult[0].total)
 
   const kpis = [
     {
       label: "Total del mes",
-      value: "$1,247,500",
+      value: `$${totalMes.toLocaleString("es-AR")}`,
       icon: DollarSign,
     },
     {
       label: "Promedio mensual",
-      value: "$62,375",
+      value: "$62,375", // lo hacemos después
       icon: TrendingUp,
     },
     {
@@ -76,16 +90,10 @@ export default async function MovimientosPage() {
                 <kpi.icon className="h-5 w-5" style={{ color: "#5A3A1A" }} />
               </div>
               <div>
-                <p
-                  className="text-sm font-medium"
-                  style={{ color: "#8B5A2B99" }}
-                >
+                <p className="text-sm font-medium" style={{ color: "#8B5A2B99" }}>
                   {kpi.label}
                 </p>
-                <p
-                  className="mt-1 text-2xl font-bold"
-                  style={{ color: "#1F1F1F" }}
-                >
+                <p className="mt-1 text-2xl font-bold" style={{ color: "#1F1F1F" }}>
                   {kpi.value}
                 </p>
               </div>
@@ -95,10 +103,7 @@ export default async function MovimientosPage() {
 
         {/* Operations Table */}
         <div className="mt-10">
-          <h2
-            className="text-xl font-bold mb-6"
-            style={{ color: "#1F1F1F" }}
-          >
+          <h2 className="text-xl font-bold mb-6" style={{ color: "#1F1F1F" }}>
             Operaciones del negocio
           </h2>
 
