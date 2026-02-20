@@ -36,7 +36,7 @@ export default async function MovimientosPage() {
   const currentYear = now.getFullYear()
   const currentMonth = now.getMonth() + 1
 
-  // ✅ TOTAL DEL MES (consulta real)
+  // ✅ TOTAL DEL MES
   const totalMesResult = await sql`
     SELECT COALESCE(SUM(monto), 0) as total
     FROM movimientos
@@ -44,8 +44,35 @@ export default async function MovimientosPage() {
     AND EXTRACT(YEAR FROM fecha) = ${currentYear}
     AND EXTRACT(MONTH FROM fecha) = ${currentMonth}
   `
-
   const totalMes = Number(totalMesResult[0].total)
+
+  // ✅ TOTAL HISTÓRICO
+  const totalHistoricoResult = await sql`
+    SELECT COALESCE(SUM(monto), 0) as total
+    FROM movimientos
+    WHERE user_id = ${userId}
+  `
+  const totalHistorico = Number(totalHistoricoResult[0].total)
+
+  // ✅ PRIMER MOVIMIENTO
+  const firstMovementResult = await sql`
+    SELECT MIN(fecha) as primera_fecha
+    FROM movimientos
+    WHERE user_id = ${userId}
+  `
+
+  let promedioMensual = 0
+
+  if (firstMovementResult[0].primera_fecha) {
+    const firstDate = new Date(firstMovementResult[0].primera_fecha)
+
+    const months =
+      (now.getFullYear() - firstDate.getFullYear()) * 12 +
+      (now.getMonth() - firstDate.getMonth()) +
+      1
+
+    promedioMensual = totalHistorico / months
+  }
 
   const kpis = [
     {
@@ -55,7 +82,7 @@ export default async function MovimientosPage() {
     },
     {
       label: "Promedio mensual",
-      value: "$62,375", // lo hacemos después
+      value: `$${Math.round(promedioMensual).toLocaleString("es-AR")}`,
       icon: TrendingUp,
     },
     {
