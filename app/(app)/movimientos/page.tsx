@@ -127,9 +127,20 @@ export default async function MovimientosPage() {
 
         {/* Operations Table */}
         <div className="mt-10">
-          <h2 className="text-xl font-bold mb-6" style={{ color: "#1F1F1F" }}>
-            Operaciones del negocio
-          </h2>
+
+          {/* Título + Botón */}
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold" style={{ color: "#1F1F1F" }}>
+              Operaciones del negocio
+            </h2>
+
+            <button
+              className="px-4 py-2 rounded-lg text-white font-medium transition hover:opacity-90"
+              style={{ backgroundColor: "#7FA44A" }}
+            >
+              + Nuevo movimiento
+            </button>
+          </div>
 
           <div
             className="rounded-2xl border overflow-hidden"
