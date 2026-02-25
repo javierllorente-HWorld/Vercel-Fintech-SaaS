@@ -1,14 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { createMovimiento } from "./actions"
 
 export function NewMovementModal() {
   const [open, setOpen] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
+  function handleSubmit(formData: FormData) {
+    startTransition(async () => {
+      await createMovimiento(formData)
+      setOpen(false)
+    })
+  }
 
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         className="px-4 py-2 rounded-lg text-white font-medium transition hover:opacity-90"
         style={{ backgroundColor: "#7FA44A" }}
@@ -23,12 +32,7 @@ export function NewMovementModal() {
               Nuevo movimiento
             </h3>
 
-            <form
-              action={async (formData) => {
-                await createMovimiento(formData)
-                setOpen(false)
-              }}
-            >
+            <form action={handleSubmit}>
               <input
                 name="detalle"
                 type="text"
@@ -63,10 +67,11 @@ export function NewMovementModal() {
 
                 <button
                   type="submit"
+                  disabled={isPending}
                   className="px-4 py-2 rounded-lg text-white"
                   style={{ backgroundColor: "#7FA44A" }}
                 >
-                  Guardar
+                  {isPending ? "Guardando..." : "Guardar"}
                 </button>
               </div>
             </form>
