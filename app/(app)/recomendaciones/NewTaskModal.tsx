@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { createTarea } from "./actions"
 
 export function NewTaskModal() {
   const [open, setOpen] = useState(false)
@@ -22,38 +23,49 @@ export function NewTaskModal() {
               Nueva tarea
             </h3>
 
-            <input
-              type="text"
-              placeholder="Detalle"
-              className="w-full mb-3 p-2 border rounded-lg"
-            />
+            <form action={createTarea}>
+              <input
+                type="text"
+                name="detalle"
+                placeholder="Detalle"
+                required
+                className="w-full mb-3 p-2 border rounded-lg"
+              />
 
-            <input
-              type="text"
-              placeholder="Responsable"
-              className="w-full mb-3 p-2 border rounded-lg"
-            />
+              <input
+                type="text"
+                name="responsable"
+                placeholder="Responsable"
+                required
+                className="w-full mb-3 p-2 border rounded-lg"
+              />
 
-            <input
-              type="date"
-              className="w-full mb-4 p-2 border rounded-lg"
-            />
+              <input
+                type="date"
+                name="deadline"
+                required
+                className="w-full mb-4 p-2 border rounded-lg"
+              />
 
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setOpen(false)}
-                className="px-4 py-2 rounded-lg border"
-              >
-                Cancelar
-              </button>
+              <div className="flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-2 rounded-lg border"
+                >
+                  Cancelar
+                </button>
 
-              <button
-                className="px-4 py-2 rounded-lg text-white"
-                style={{ backgroundColor: "#7FA44A" }}
-              >
-                Guardar
-              </button>
-            </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg text-white"
+                  style={{ backgroundColor: "#7FA44A" }}
+                >
+                  Guardar
+                </button>
+              </div>
+            </form>
+
           </div>
         </div>
       )}
