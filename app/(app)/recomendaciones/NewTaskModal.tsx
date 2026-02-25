@@ -23,7 +23,10 @@ export function NewTaskModal() {
               Nueva tarea
             </h3>
 
-            <form action={createTarea}>
+            <form
+              action={createTarea}
+              onSubmit={() => setOpen(false)}
+            >
               <input
                 type="text"
                 name="detalle"
