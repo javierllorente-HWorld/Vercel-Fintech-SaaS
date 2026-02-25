@@ -2,6 +2,7 @@ import { DollarSign, TrendingUp, Calendar } from "lucide-react"
 import { cookies } from "next/headers"
 import { neon } from "@neondatabase/serverless"
 import { DeleteButton } from "./DeleteButton"
+import { NewMovementModal } from "./NewMovementModal"
 
 const sql = neon(process.env.DATABASE_URL!)
 
@@ -128,18 +129,13 @@ export default async function MovimientosPage() {
         {/* Operations Table */}
         <div className="mt-10">
 
-          {/* Título + Botón */}
+          {/* Título + Modal Button */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold" style={{ color: "#1F1F1F" }}>
               Operaciones del negocio
             </h2>
 
-            <button
-              className="px-4 py-2 rounded-lg text-white font-medium transition hover:opacity-90"
-              style={{ backgroundColor: "#7FA44A" }}
-            >
-              + Nuevo movimiento
-            </button>
+            <NewMovementModal />
           </div>
 
           <div
@@ -199,11 +195,9 @@ export default async function MovimientosPage() {
                       <td className="px-6 py-5 text-sm text-right">
                         {new Date(op.fecha).toLocaleDateString("es-AR")}
                       </td>
-
                       <td className="px-6 py-5 text-right">
                         <DeleteButton movementId={op.id} />
                       </td>
-
                     </tr>
                   ))}
                 </tbody>
