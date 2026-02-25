@@ -1,15 +1,32 @@
 "use server"
 
 import { neon } from "@neondatabase/serverless"
+import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 
-export async function markAsDone(id: number) {
-  const sql = neon(process.env.DATABASE_URL!)
+const sql = neon(process.env.DATABASE_URL!)
+
+export async function createTarea(formData: FormData) {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get("user_id")?.value
+
+  if (!userId) return
+
+  const detalle = formData.get("detalle") as string
+  const responsable = formData.get("responsable") as string
+  const deadline = formData.get("deadline") as string
 
   await sql`
-    UPDATE recomendaciones
-    SET completed = true
-    WHERE id = ${id} AND user_id = 1
+    INSERT INTO tareas (user_id, identificador, detalle, responsable, estado, fecha_creacion, deadline)
+    VALUES (
+      ${userId},
+      'TEMP',
+      ${detalle},
+      ${responsable},
+      'pendiente',
+      NOW(),
+      ${deadline}
+    )
   `
 
   revalidatePath("/recomendaciones")
