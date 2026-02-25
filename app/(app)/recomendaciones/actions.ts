@@ -17,14 +17,20 @@ export async function createTarea(formData: FormData) {
   const deadline = formData.get("deadline") as string
 
   await sql`
-    INSERT INTO tareas (user_id, identificador, detalle, responsable, estado, fecha_creacion, deadline)
+    INSERT INTO tareas (
+      user_id,
+      detalle,
+      responsable,
+      estado,
+      fecha_creacion,
+      deadline
+    )
     VALUES (
       ${userId},
-      'TEMP',
       ${detalle},
       ${responsable},
       'pendiente',
-      NOW(),
+      CURRENT_DATE,
       ${deadline}
     )
   `
