@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { Trash2 } from "lucide-react"
+import { deleteTarea } from "./actions"
 
-export function DeleteTaskButton() {
+export function DeleteTaskButton({ id }: { id: number }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -35,6 +36,10 @@ export function DeleteTaskButton() {
               </button>
 
               <button
+                onClick={async () => {
+                  await deleteTarea(id)
+                  setOpen(false)
+                }}
                 className="px-4 py-2 rounded-lg text-white bg-red-600 hover:bg-red-700 transition"
               >
                 Eliminar

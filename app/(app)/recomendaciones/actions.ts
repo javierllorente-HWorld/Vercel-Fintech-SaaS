@@ -37,3 +37,18 @@ export async function createTarea(formData: FormData) {
 
   revalidatePath("/recomendaciones")
 }
+
+export async function deleteTarea(id: number) {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get("user_id")?.value
+
+  if (!userId) return
+
+  await sql`
+    DELETE FROM tareas
+    WHERE id = ${id}
+    AND user_id = ${userId}
+  `
+
+  revalidatePath("/recomendaciones")
+}
