@@ -33,7 +33,7 @@ export default async function DashboardPage() {
     WHERE user_id = ${userId}
   `
 
-  const cajaActual = cajaResult[0].total
+  const cajaActual = Number(cajaResult[0].total)
 
   return (
     <div>
