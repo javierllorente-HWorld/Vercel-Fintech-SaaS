@@ -2,7 +2,6 @@ import { neon } from "@neondatabase/serverless"
 import { cookies } from "next/headers"
 import { NewTaskModal } from "./NewTaskModal"
 import { DeleteTaskButton } from "./DeleteTaskButton"
-import { updateEstadoTarea } from "./actions"
 
 export default async function TareasPage() {
   const sql = neon(process.env.DATABASE_URL!)
@@ -91,26 +90,19 @@ export default async function TareasPage() {
                     </td>
 
                     <td className="px-6 py-5 text-sm">
-                      <form
-                        action={async (formData) => {
-                          "use server"
+                      <select
+                        defaultValue={tarea.estado}
+                        onChange={async (e) => {
                           const { updateEstadoTarea } = await import("./actions")
-                          await updateEstadoTarea(formData)
+                          await updateEstadoTarea(tarea.id, e.target.value)
                         }}
+                        className="px-2 py-1 rounded-md border text-sm"
                       >
-                        <input type="hidden" name="id" value={tarea.id} />
-                        <select
-                          name="estado"
-                          defaultValue={tarea.estado}
-                          onChange={(e) => e.currentTarget.form?.requestSubmit()}
-                          className="px-2 py-1 rounded-md border text-sm"
-                        >
-                          <option value="pendiente">Pendiente</option>
-                          <option value="en_proceso">En proceso</option>
-                          <option value="atrasada">Atrasada</option>
-                          <option value="completada">Completada</option>
-                        </select>
-                      </form>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en_proceso">En proceso</option>
+                        <option value="atrasada">Atrasada</option>
+                        <option value="completada">Completada</option>
+                      </select>
                     </td>
 
                     <td className="px-6 py-5 text-right">
