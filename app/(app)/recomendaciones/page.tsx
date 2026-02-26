@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless"
 import { cookies } from "next/headers"
 import { NewTaskModal } from "./NewTaskModal"
 import { DeleteTaskButton } from "./DeleteTaskButton"
+import { updateEstadoTarea } from "./actions"
 
 export default async function TareasPage() {
   const sql = neon(process.env.DATABASE_URL!)
@@ -24,7 +25,6 @@ export default async function TareasPage() {
     <div className="min-h-screen" style={{ backgroundColor: "#F3E9D7" }}>
       <main className="px-6 py-10 lg:px-8 max-w-7xl mx-auto">
 
-        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-3xl font-bold" style={{ color: "#1F1F1F" }}>
@@ -38,7 +38,6 @@ export default async function TareasPage() {
           <NewTaskModal />
         </div>
 
-        {/* Tabla */}
         <div
           className="rounded-2xl border overflow-hidden"
           style={{
@@ -92,15 +91,20 @@ export default async function TareasPage() {
                     </td>
 
                     <td className="px-6 py-5 text-sm">
-                      <select
-                        defaultValue={tarea.estado}
-                        className="px-2 py-1 rounded-md border text-sm"
-                      >
-                        <option value="pendiente">Pendiente</option>
-                        <option value="en_proceso">En proceso</option>
-                        <option value="atrasada">Atrasada</option>
-                        <option value="completada">Completada</option>
-                      </select>
+                      <form action={updateEstadoTarea}>
+                        <input type="hidden" name="id" value={tarea.id} />
+                        <select
+                          name="estado"
+                          defaultValue={tarea.estado}
+                          onChange={(e) => e.currentTarget.form?.requestSubmit()}
+                          className="px-2 py-1 rounded-md border text-sm"
+                        >
+                          <option value="pendiente">Pendiente</option>
+                          <option value="en_proceso">En proceso</option>
+                          <option value="atrasada">Atrasada</option>
+                          <option value="completada">Completada</option>
+                        </select>
+                      </form>
                     </td>
 
                     <td className="px-6 py-5 text-right">
