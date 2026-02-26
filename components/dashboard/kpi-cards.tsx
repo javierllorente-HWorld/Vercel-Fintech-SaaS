@@ -9,35 +9,40 @@ interface KpiCard {
   highlight?: boolean
 }
 
-const kpiData: KpiCard[] = [
-  {
-    icon: <ClipboardList className="w-5 h-5" />,
-    label: "Caja actual",
-    value: "$ 284.500",
-    subtitle: "+12% vs semana pasada",
-  },
-  {
-    icon: <TrendingUp className="w-5 h-5" />,
-    label: "Entrada hoy",
-    value: "$ 47.300",
-    subtitle: "Actualizado hace 5 min",
-  },
-  {
-    icon: <AlertCircle className="w-5 h-5" />,
-    label: "Proximos pagos",
-    value: "$ 32.100",
-    subtitle: "Vence el 10 de febrero",
-  },
-  {
-    icon: <Wallet className="w-5 h-5" />,
-    label: "Prestamo disponible",
-    value: "$ 350.000",
-    subtitle: "Basado en tus ventas",
-    highlight: true,
-  },
-]
+interface Props {
+  cajaActual: number
+}
 
-export function KpiCards() {
+export function KpiCards({ cajaActual }: Props) {
+
+  const kpiData: KpiCard[] = [
+    {
+      icon: <ClipboardList className="w-5 h-5" />,
+      label: "Caja actual",
+      value: `$ ${cajaActual.toLocaleString("es-AR")}`,
+      subtitle: "Saldo total acumulado",
+    },
+    {
+      icon: <TrendingUp className="w-5 h-5" />,
+      label: "Entrada hoy",
+      value: "$ 47.300",
+      subtitle: "Actualizado hace 5 min",
+    },
+    {
+      icon: <AlertCircle className="w-5 h-5" />,
+      label: "Proximos pagos",
+      value: "$ 32.100",
+      subtitle: "Vence el 10 de febrero",
+    },
+    {
+      icon: <Wallet className="w-5 h-5" />,
+      label: "Prestamo disponible",
+      value: "$ 350.000",
+      subtitle: "Basado en tus ventas",
+      highlight: true,
+    },
+  ]
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {kpiData.map((card) => (
@@ -50,7 +55,6 @@ export function KpiCards() {
               : { backgroundColor: "#FFFFFF", borderColor: "#E0B45C33" }
           }
         >
-          {/* Icon */}
           <div
             className="w-10 h-10 rounded-lg flex items-center justify-center"
             style={
@@ -62,7 +66,6 @@ export function KpiCards() {
             {card.icon}
           </div>
 
-          {/* Content */}
           <div>
             <p
               className="text-xs font-medium mb-1"
@@ -78,7 +81,6 @@ export function KpiCards() {
             </p>
           </div>
 
-          {/* Subtitle */}
           <p
             className="text-xs"
             style={{ color: card.highlight ? "#F3E9D7AA" : "#7FA44A" }}
@@ -86,7 +88,6 @@ export function KpiCards() {
             {card.subtitle}
           </p>
 
-          {/* Locked overlay for highlighted card */}
           {card.highlight && (
             <div
               className="absolute inset-0 flex items-center justify-center rounded-xl"

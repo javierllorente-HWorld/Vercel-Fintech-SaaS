@@ -26,6 +26,15 @@ export default async function DashboardPage() {
 
   const user = users[0]
 
+  // ✅ CALCULAR CAJA ACTUAL
+  const cajaResult = await sql`
+    SELECT COALESCE(SUM(monto), 0) as total
+    FROM movimientos
+    WHERE user_id = ${userId}
+  `
+
+  const cajaActual = cajaResult[0].total
+
   return (
     <div>
       <main className="flex-1 px-6 lg:px-8 py-6">
@@ -39,7 +48,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mb-6">
-          <KpiCards />
+          <KpiCards cajaActual={cajaActual} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
