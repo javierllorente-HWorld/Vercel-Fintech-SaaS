@@ -104,7 +104,7 @@ export default async function TareasPage() {
                     </td>
 
                     <td className="px-6 py-5 text-right">
-                      <DeleteTaskButton />
+                      <DeleteTaskButton id={tarea.id} />
                     </td>
 
                   </tr>
