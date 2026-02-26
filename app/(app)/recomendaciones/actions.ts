@@ -52,3 +52,18 @@ export async function deleteTarea(id: number) {
 
   revalidatePath("/recomendaciones")
 }
+export async function updateEstadoTarea(id: number, estado: string) {
+  const cookieStore = await cookies()
+  const userId = cookieStore.get("user_id")?.value
+
+  if (!userId) return
+
+  await sql`
+    UPDATE tareas
+    SET estado = ${estado}
+    WHERE id = ${id}
+    AND user_id = ${userId}
+  `
+
+  revalidatePath("/recomendaciones")
+}
