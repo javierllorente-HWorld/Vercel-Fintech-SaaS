@@ -91,7 +91,13 @@ export default async function TareasPage() {
                     </td>
 
                     <td className="px-6 py-5 text-sm">
-                      <form action={updateEstadoTarea}>
+                      <form
+                        action={async (formData) => {
+                          "use server"
+                          const { updateEstadoTarea } = await import("./actions")
+                          await updateEstadoTarea(formData)
+                        }}
+                      >
                         <input type="hidden" name="id" value={tarea.id} />
                         <select
                           name="estado"

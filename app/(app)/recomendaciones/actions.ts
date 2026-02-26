@@ -6,15 +6,19 @@ import { revalidatePath } from "next/cache"
 
 const sql = neon(process.env.DATABASE_URL!)
 
+/* =========================
+   CREAR TAREA
+========================= */
 export async function createTarea(formData: FormData) {
-  const cookieStore = await cookies()
+  const cookieStore = cookies()
   const userId = cookieStore.get("user_id")?.value
-
   if (!userId) return
 
-  const detalle = formData.get("detalle") as string
-  const responsable = formData.get("responsable") as string
-  const deadline = formData.get("deadline") as string
+  const detalle = formData.get("detalle")?.toString()
+  const responsable = formData.get("responsable")?.toString() || "Sin asignar"
+  const deadline = formData.get("deadline")?.toString()
+
+  if (!detalle || !deadline) return
 
   await sql`
     INSERT INTO tareas (
@@ -26,7 +30,7 @@ export async function createTarea(formData: FormData) {
       deadline
     )
     VALUES (
-      ${userId},
+      ${Number(userId)},
       ${detalle},
       ${responsable},
       'pendiente',
@@ -38,31 +42,38 @@ export async function createTarea(formData: FormData) {
   revalidatePath("/recomendaciones")
 }
 
-export async function deleteTarea(id: number) {
-  const cookieStore = await cookies()
-  const userId = cookieStore.get("user_id")?.value
 
+/* =========================
+   ELIMINAR TAREA
+========================= */
+export async function deleteTarea(id: number) {
+  const cookieStore = cookies()
+  const userId = cookieStore.get("user_id")?.value
   if (!userId) return
 
   await sql`
     DELETE FROM tareas
     WHERE id = ${id}
-    AND user_id = ${userId}
+    AND user_id = ${Number(userId)}
   `
 
   revalidatePath("/recomendaciones")
 }
-export async function updateEstadoTarea(id: number, estado: string) {
-  const cookieStore = await cookies()
-  const userId = cookieStore.get("user_id")?.value
 
+
+/* =========================
+   ACTUALIZAR ESTADO
+========================= */
+export async function updateEstadoTarea(id: number, estado: string) {
+  const cookieStore = cookies()
+  const userId = cookieStore.get("user_id")?.value
   if (!userId) return
 
   await sql`
     UPDATE tareas
     SET estado = ${estado}
     WHERE id = ${id}
-    AND user_id = ${userId}
+    AND user_id = ${Number(userId)}
   `
 
   revalidatePath("/recomendaciones")
