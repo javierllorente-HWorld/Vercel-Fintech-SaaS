@@ -10,7 +10,7 @@ const sql = neon(process.env.DATABASE_URL!)
    CREAR TAREA
 ========================= */
 export async function createTarea(formData: FormData) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userId = cookieStore.get("user_id")?.value
   if (!userId) return
 
@@ -47,7 +47,7 @@ export async function createTarea(formData: FormData) {
    ELIMINAR TAREA
 ========================= */
 export async function deleteTarea(id: number) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userId = cookieStore.get("user_id")?.value
   if (!userId) return
 
@@ -65,7 +65,7 @@ export async function deleteTarea(id: number) {
    ACTUALIZAR ESTADO
 ========================= */
 export async function updateEstadoTarea(id: number, estado: string) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userId = cookieStore.get("user_id")?.value
   if (!userId) return
 
