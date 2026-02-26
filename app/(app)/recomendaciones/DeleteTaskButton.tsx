@@ -24,7 +24,7 @@ export function DeleteTaskButton({ id }: { id: number }) {
             </h3>
 
             <p className="text-sm mb-6">
-              Esta acción no se puede deshacer.
+              ¿Seguro que querés eliminar esta tarea?
             </p>
 
             <div className="flex justify-end gap-3">
