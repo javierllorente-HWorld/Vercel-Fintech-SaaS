@@ -26,14 +26,49 @@ export default async function DashboardPage() {
 
   const user = users[0]
 
-  // ✅ CALCULAR CAJA ACTUAL
+  // ✅ CAJA ACTUAL
   const cajaResult = await sql`
     SELECT COALESCE(SUM(monto), 0) as total
     FROM movimientos
     WHERE user_id = ${userId}
   `
-
   const cajaActual = Number(cajaResult[0].total)
+
+  // ✅ ENTRADAS DEL MES (solo ingresos)
+  const entradasMesResult = await sql`
+    SELECT COALESCE(SUM(monto), 0) as total
+    FROM movimientos
+    WHERE user_id = ${userId}
+    AND monto > 0
+    AND DATE_TRUNC('month', fecha) = DATE_TRUNC('month', CURRENT_DATE)
+  `
+  const entradasMes = Number(entradasMesResult[0].total)
+
+  // ✅ RESULTADO DEL MES (ingresos - egresos)
+  const resultadoMesResult = await sql`
+    SELECT COALESCE(SUM(monto), 0) as total
+    FROM movimientos
+    WHERE user_id = ${userId}
+    AND DATE_TRUNC('month', fecha) = DATE_TRUNC('month', CURRENT_DATE)
+  `
+  const resultadoMes = Number(resultadoMesResult[0].total)
+
+  // ✅ RESULTADO ÚLTIMOS 6 MESES
+  const ultimosMesesResult = await sql`
+  SELECT 
+    DATE_TRUNC('month', fecha) as mes,
+    COALESCE(SUM(monto), 0) as total
+  FROM movimientos
+  WHERE user_id = ${userId}
+  AND fecha >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '5 months'
+  GROUP BY mes
+  ORDER BY mes ASC
+`
+
+  const ultimosMeses = ultimosMesesResult.map((row: any) => ({
+    mes: row.mes,
+    total: Number(row.total),
+  }))
 
   return (
     <div>
@@ -48,12 +83,16 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mb-6">
-          <KpiCards cajaActual={cajaActual} />
+          <KpiCards
+            cajaActual={cajaActual}
+            entradasMes={entradasMes}
+            resultadoMes={resultadoMes}
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
           <div className="lg:col-span-3">
-            <RevenueChart />
+            <RevenueChart data={ultimosMeses} />
           </div>
           <div className="lg:col-span-2">
             <LoanSimulator />

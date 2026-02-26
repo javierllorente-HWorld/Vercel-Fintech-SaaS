@@ -1,4 +1,4 @@
-import { ClipboardList, TrendingUp, AlertCircle, Wallet, Lock } from "lucide-react"
+import { ClipboardList, TrendingUp, BarChart3, Wallet, Lock } from "lucide-react"
 import type { ReactNode } from "react"
 
 interface KpiCard {
@@ -7,13 +7,19 @@ interface KpiCard {
   value: string
   subtitle: string
   highlight?: boolean
+  valueColor?: string
 }
 
 interface Props {
   cajaActual: number
+  entradasMes: number
+  resultadoMes: number
 }
 
-export function KpiCards({ cajaActual }: Props) {
+export function KpiCards({ cajaActual, entradasMes, resultadoMes }: Props) {
+
+  const resultadoColor =
+    resultadoMes >= 0 ? "#16A34A" : "#DC2626"
 
   const kpiData: KpiCard[] = [
     {
@@ -24,15 +30,19 @@ export function KpiCards({ cajaActual }: Props) {
     },
     {
       icon: <TrendingUp className="w-5 h-5" />,
-      label: "Entrada hoy",
-      value: "$ 47.300",
-      subtitle: "Actualizado hace 5 min",
+      label: "Entradas del mes",
+      value: `$ ${entradasMes.toLocaleString("es-AR")}`,
+      subtitle: "Ingresos del mes actual",
     },
     {
-      icon: <AlertCircle className="w-5 h-5" />,
-      label: "Proximos pagos",
-      value: "$ 32.100",
-      subtitle: "Vence el 10 de febrero",
+      icon: <BarChart3 className="w-5 h-5" />,
+      label: "Resultado del mes",
+      value: `$ ${resultadoMes.toLocaleString("es-AR")}`,
+      subtitle:
+        resultadoMes >= 0
+          ? "Resultado positivo"
+          : "Resultado negativo",
+      valueColor: resultadoColor,
     },
     {
       icon: <Wallet className="w-5 h-5" />,
@@ -75,7 +85,11 @@ export function KpiCards({ cajaActual }: Props) {
             </p>
             <p
               className="text-2xl font-bold"
-              style={{ color: card.highlight ? "#F3E9D7" : "#1F1F1F" }}
+              style={{
+                color: card.highlight
+                  ? "#F3E9D7"
+                  : card.valueColor || "#1F1F1F",
+              }}
             >
               {card.value}
             </p>
