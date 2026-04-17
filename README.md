@@ -1,35 +1,29 @@
-# Vercel-Fintech-SaaS
+# MATEO
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+MATEO es un prototipo web explorado como ejercicio práctico de construcción de producto con AI tools.
 
-## Built with v0
+El proyecto fue creado con v0 a partir de prompts y luego ajustado con ediciones sobre el código. Uno de los focos principales de este trabajo fue conectar la aplicación a una base de datos alojada en Neon y entender mejor ese flujo de integración.
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+## En qué me enfoqué
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_nlfDXmEJTKRIRPYHLNnZ2ZBxUVDf)
+- prototipado rápido de una interfaz funcional
+- iteración sobre contenido y estructura del producto
+- conexión de la app con una base de datos en Neon
+- aprendizaje práctico de un flujo web con frontend + backend simple
 
-## Getting Started
+## Stack
 
-First, run the development server:
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Neon/SQL
+
+## Estado del proyecto
+
+Prototipo en evolución, usado principalmente como práctica para explorar construcción de producto, edición de código e integración con base de datos.
+
+## Instalación local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-<a href="https://v0.app/chat/api/kiro/clone/javierllorente-HWorld/Vercel-Fintech-SaaS" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
