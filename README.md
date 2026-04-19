@@ -8,7 +8,19 @@ El proyecto fue creado con AI tools a partir de prompts y luego ajustado con edi
 
 <img width="1366" height="2188" alt="image" src="https://github.com/user-attachments/assets/96fb64be-011d-4cb6-aa8e-dd9c8307618d" />
 
+## Features
 
+- **Dashboard de negocio** — Vista rápida de caja actual, entradas del mes y resultado mensual.
+- **Métricas visuales** — Seguimiento de resultados de los últimos meses con gráficos simples.
+- **Registro de movimientos** — Alta y visualización de ingresos y egresos del negocio.
+- **Historial de operaciones** — Tabla de movimientos con detalle, monto, fecha y acciones.
+- **Gestión de tareas** — Creación y seguimiento de tareas internas del negocio.
+- **Estados de tareas** — Cambio de estado entre pendiente, en proceso, atrasada y completada.
+- **Carga rápida desde modales** — Alta de tareas y movimientos desde formularios simples.
+- **Interfaz pensada para PyMEs** — Navegación clara para usar el producto sin fricción.
+- **Autenticación de usuarios** — Acceso mediante login y opción de continuar con Google.
+- **Base de datos conectada** — Integración con Neon para persistencia de datos.
+- **Módulo de crédito en exploración** — Simulador y vista de crédito disponibles como prototipo visual, todavía no habilitados para uso real.
 
 
 ## En qué me enfoqué
