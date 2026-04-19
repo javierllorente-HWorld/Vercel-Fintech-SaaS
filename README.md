@@ -42,6 +42,14 @@ El proyecto fue creado con AI tools a partir de prompts y luego ajustado con edi
 
 Prototipo en evolución, usado principalmente como práctica para explorar construcción de producto, edición de código e integración con base de datos.
 
+## Demo
+
+Acceso público de prueba:
+
+- Link: `https://v0-mateo-login-page-md.vercel.app/`
+- Email: `demo@mateo.com`
+- Password: `mateo-demo-2026`
+
 ## Instalación local
 
 ```bash
