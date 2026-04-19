@@ -2,7 +2,7 @@
 
 MATEO es un prototipo web explorado como ejercicio práctico de construcción de producto con AI tools.
 
-El proyecto fue creado con v0 a partir de prompts y luego ajustado con ediciones sobre el código. Uno de los focos principales de este trabajo fue conectar la aplicación a una base de datos alojada en Neon y entender mejor ese flujo de integración.
+El proyecto fue creado con AI tools a partir de prompts y luego ajustado con ediciones sobre el código. Uno de los focos principales de este trabajo fue conectar la aplicación a una base de datos alojada en Neon y entender mejor ese flujo de integración.
 
 ## En qué me enfoqué
 
