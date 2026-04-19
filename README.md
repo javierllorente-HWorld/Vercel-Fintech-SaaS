@@ -20,6 +20,7 @@ El proyecto fue creado con AI tools a partir de prompts y luego ajustado con edi
 - **Interfaz pensada para PyMEs** — Navegación clara para usar el producto sin fricción.
 - **Autenticación de usuarios** — Acceso mediante login y opción de continuar con Google.
 - **Base de datos conectada** — Integración con Neon para persistencia de datos.
+- **Cálculo automático de métricas — Actualización automática de indicadores como caja actual, entradas del mes y resultado mensual a partir de los movimientos registrados.
 - **Módulo de crédito en exploración** — Simulador y vista de crédito disponibles como prototipo visual, todavía no habilitados para uso real.
 
 
